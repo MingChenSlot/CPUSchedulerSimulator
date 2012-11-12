@@ -50,7 +50,6 @@ void free_q(QUEUE *q);
 void init_pri_q(PRI_QUEUE pq);
 void push_pq(PRI_QUEUE *pq, TASK *task);
 struct task *pop_pq(PRI_QUEUE *pq);
-int length_pq(PRI_QUEUE *pq);
 void free_pq(PRI_QUEUE *pq);
 
 #endif /* TASKS_H_*/
