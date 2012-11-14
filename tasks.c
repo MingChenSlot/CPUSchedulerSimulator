@@ -50,15 +50,15 @@ void free_q(QUEUE *q)
 		free(dequeue(q));
 }
 
-/* Priority Queue Operations */
-void init_pri_q(EXP_QUEUE eq)
+/* Exponential Queue Operations */
+void init_eq(EXP_QUEUE eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)
 		init_q(eq->task_q);
 }
 
-void push_pq(EXP_QUEUE *eq, TASK *task)
+void push_eq(EXP_QUEUE *eq, TASK *task)
 {
 	if(task->t_slice == 0)
 		task->t_slice = task->priority * SLICE;
@@ -67,7 +67,7 @@ void push_pq(EXP_QUEUE *eq, TASK *task)
 	enqueue(eq->task_q[task->priority - 1], task);
 }		
 
-TASK *pop_pq(EXP_QUEUE *eq)
+TASK *pop_eq(EXP_QUEUE *eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)
@@ -78,7 +78,7 @@ TASK *pop_pq(EXP_QUEUE *eq)
 	return NULL;
 }
 
-void free_pq(EXP_QUEUE *eq)
+void free_eq(EXP_QUEUE *eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)

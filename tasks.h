@@ -46,10 +46,10 @@ struct task *dequeue(QUEUE *q);
 int length_q(QUEUE *q);
 void free_q(QUEUE *q);
 
-/* Priority Queue Operations */
-void init_pri_q(EXP_QUEUE *eq);
-void push_pq(EXP_QUEUE *eq, TASK *task);
-struct task *pop_pq(EXP_QUEUE *eq);
-void free_pq(EXP_QUEUE *eq);
+/* Exponential Queue Operations */
+void init_eq(EXP_QUEUE *eq);
+void push_eq(EXP_QUEUE *eq, TASK *task);
+struct task *pop_eq(EXP_QUEUE *eq);
+void free_eq(EXP_QUEUE *eq);
 
 #endif /* TASKS_H_*/
