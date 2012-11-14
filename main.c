@@ -21,8 +21,8 @@ void main()
 
 	QUEUE q;
 	init_q(&q);
-	enqueue(&q, t[1]);
-	enqueue(&q, t[5]);
+	enqueue(&q, t + 1);
+	enqueue(&q, t + 5);
 	printf("Length is %d", length_q(&q));
 	printf("arrive t is %d", dequeue(&q)->t_arrive);
 	printf("Length is %d", length_q(&q));

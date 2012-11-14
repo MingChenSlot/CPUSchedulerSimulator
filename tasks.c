@@ -51,7 +51,7 @@ void free_q(QUEUE *q)
 }
 
 /* Exponential Queue Operations */
-void init_eq(EXP_QUEUE eq)
+void init_eq(EXP_QUEUE *eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)
