@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "queue.h"
+#include "tasks.h"
 
 /* Queue Operations */
 void init_q(QUEUE *q)
@@ -18,7 +18,7 @@ void enqueue(QUEUE *q, TASK *task)
 	if(q->head == NULL)
 		q->head = q->tail = tmp;
 	else{
-		q->tail-next = tmp;
+		q->tail->next = tmp;
 		q->tail = tmp;
 	}
 	q->size++;
@@ -31,7 +31,7 @@ struct task *dequeue(QUEUE *q)
 	TASK *ret = q->head->tk;
 	QNODE *tmp = q->head;
 	if(q->head == q->tail)
-		q->head = q-tail = NULL;
+		q->head = q->tail = NULL;
 	else
 		q->head = q->head->next;
 	free(tmp);
@@ -51,39 +51,39 @@ void free_q(QUEUE *q)
 }
 
 /* Priority Queue Operations */
-void init_pri_q(PRI_QUEUE pq)
+void init_pri_q(EXP_QUEUE eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)
-		init_q(pq->task_q);
+		init_q(eq->task_q);
 }
 
-void push_pq(PRI_QUEUE *pq, TASK *task)
+void push_pq(EXP_QUEUE *eq, TASK *task)
 {
 	if(task->t_slice == 0)
 		task->t_slice = task->priority * SLICE;
-	if(pq->task_q[task->priority - 1] == NULL)
-		init_q(pq->task_q[task->priortiy - 1]);
-	enqueue(pq->task_q[task->priority - 1], task);
+	if(eq->task_q[task->priority - 1] == NULL)
+		init_q(eq->task_q[task->priority - 1]);
+	enqueue(eq->task_q[task->priority - 1], task);
 }		
 
-TASK *pop_pq(PRI_QUEUE *pq)
+TASK *pop_pq(EXP_QUEUE *eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)
 	{
-		if(length_q(pq->task_q[i]))
-			return dequeue(pq->task_q[i]);
+		if(length_q(eq->task_q[i]))
+			return dequeue(eq->task_q[i]);
 	}
 	return NULL;
 }
 
-void free_pq(PRI_QUEUE *pq)
+void free_pq(EXP_QUEUE *eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)
 	{
-		free_q(pq->task_q[i]);
+		free_q(eq->task_q[i]);
 	}
 }
 
