@@ -5,10 +5,9 @@
  *      Author: ming
  */
 
-#include <stdlib.h>
 #include "tasks.h"
 
-void main()
+int main()
 {
 	TASK t[10];
 	int i;
@@ -21,13 +20,17 @@ void main()
 
 	QUEUE q;
 	init_q(&q);
+	printf("Queue Initiated\n");
 	enqueue(&q, t + 1);
 	enqueue(&q, t + 5);
-	printf("Length is %d", length_q(&q));
-	printf("arrive t is %d", dequeue(&q)->t_arrive);
-	printf("Length is %d", length_q(&q));
+	printf("Enqueue Finished\n");
+	printf("Length is %d\n", length_q(&q));
+	printf("arrive t is %d\n", dequeue(&q)->t_arrive);
+	printf("Dequeue Finished\n");
+	printf("Length is %d\n", length_q(&q));
 	free_q(&q);
-	printf("Length is %d", length_q(&q));
+	printf("Free Finished\n");
+	printf("Length is %d\n", length_q(&q));
 
-	return;
+	return 1;
 }

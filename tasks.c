@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "tasks.h"
 
 /* Queue Operations */
@@ -47,7 +46,7 @@ int length_q(QUEUE *q)
 void free_q(QUEUE *q)
 {
 	while(q->head != NULL)
-		free(dequeue(q));
+		dequeue(q);
 }
 
 /* Exponential Queue Operations */
@@ -55,7 +54,7 @@ void init_eq(EXP_QUEUE *eq)
 {
 	int i = 0;
 	for(;i < PRIORITY_LEVEL; i++)
-		init_q(eq->task_q);
+		init_q(eq->task_q[i]);
 }
 
 void push_eq(EXP_QUEUE *eq, TASK *task)

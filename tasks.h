@@ -3,6 +3,8 @@
  *   
  *   Created on: Nov 11, 2012
  */
+#include <stdlib.h>
+#include <stdio.h>
 
 #ifndef TASKS_H_
 #define TASKS_H_
@@ -12,13 +14,13 @@
 
 typedef struct task
 {
-	int t_compl; // overall completion time
+	int t_compl; /* overall completion time */
 	int t_arrive;
-	int t_cpu;	// remaining CPU time needed
-	int c_io;	// remaining I/O operations needed
+	int t_cpu;	/* remaining CPU time needed */
+	int c_io;	/* remaining I/O operations needed */
 	int priority;
-	int t_io;	// remaining time for finishing current I/O operation
-	int t_slice;// remaining execution time within one time slice
+	int t_io;	/* remaining time for finishing current I/O operation */
+	int t_slice;/* remaining execution time within one time slice */
 }TASK;
 
 typedef struct queue_node
@@ -51,5 +53,6 @@ void init_eq(EXP_QUEUE *eq);
 void push_eq(EXP_QUEUE *eq, TASK *task);
 struct task *pop_eq(EXP_QUEUE *eq);
 void free_eq(EXP_QUEUE *eq);
+
 
 #endif /* TASKS_H_*/
