@@ -5,6 +5,7 @@
  */
 #include <stdlib.h>
 #include <stdio.h>
+#include "error.h"
 
 #ifndef TASKS_H_
 #define TASKS_H_
@@ -18,6 +19,7 @@ typedef struct task
 	int t_arrive;
 	int t_cpu;	/* remaining CPU time needed */
 	int c_io;	/* remaining I/O operations needed */
+	int t_nextIO; /* remaining time for next io operation */
 	int priority;
 	int t_io;	/* remaining time for finishing current I/O operation */
 	int t_slice;/* remaining execution time within one time slice */

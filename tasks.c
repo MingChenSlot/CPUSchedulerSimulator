@@ -11,7 +11,10 @@ void init_q(QUEUE *q)
 void enqueue(QUEUE *q, TASK *task)
 {
 	QNODE *tmp;
-	tmp = (QNODE *)malloc(sizeof(QNODE));
+	if(!(tmp = (QNODE *)malloc(sizeof(QNODE)))){
+		fprintf(stderr, "Malloc Qnode Failed!\n");
+		exit(1);
+	}
 	tmp->tk = task;
 	tmp->next = NULL;
 	if(q->head == NULL)
@@ -53,14 +56,23 @@ void free_q(QUEUE *q)
 void init_eq(EXP_QUEUE *eq)
 {
 	int i = 0;
-	for(;i < PRIORITY_LEVEL; i++)
+	for(;i < PRIORITY_LEVEL; i++){
+		if(!(eq->task_q[i] = (QUEUE *)malloc(sizeof(QUEUE)))){
+			fprintf(stderr, "Malloc Queue Failed!\n");
+			exit(1);
+		}
 		init_q(eq->task_q[i]);
+	}
 }
 
 void push_eq(EXP_QUEUE *eq, TASK *task)
 {
 	if(task->t_slice == 0)
 		task->t_slice = task->priority * SLICE;
+	if(task->priority < 0 || task->priority > 8){
+		fprintf(stderr, "Invalid Priority!\n");
+		exit(1);
+	}
 	if(eq->task_q[task->priority - 1] == NULL)
 		init_q(eq->task_q[task->priority - 1]);
 	enqueue(eq->task_q[task->priority - 1], task);
@@ -83,6 +95,7 @@ void free_eq(EXP_QUEUE *eq)
 	for(;i < PRIORITY_LEVEL; i++)
 	{
 		free_q(eq->task_q[i]);
+		free(eq->task_q[i]);
 	}
 }
 
