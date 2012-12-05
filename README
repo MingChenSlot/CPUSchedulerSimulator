@@ -1,3 +1,14 @@
-This is a course project, focusing on scheduler simulator.
+Ming Chen 9068207811 cs_login username: mingc
+Gang Jing 9030209713 cs_login username: gang
 
 
+We build two binary targets(named exp_sim and sctf_sim) in Makefile to finish the simulator in two algorithm. sched, input, disk module are main modules called by main function. queue module includes all the basic data structures in our simulator. 
+
+For exponential queue algorithm, we use exp_queue module to implement the algorithm. While misc module and priorityQ module belongs to shortest completion time first algorithm.
+
+In specific implementation, the important part is how we deal with the context switch. In our design, we use the program immediately after it is taking out from CPU when we start new I/O. We put it into I/O queue (if this process's I/O is processed at this time, we add one more 1ms to balance the time it is needed by taking out CPU). Then the main loop will advance 1ms to finish taking out CPU (finish CPU time or use up time slice will be processed at this moment). And at this time, if there is a program put into CPU, we advance extra 1ms to finish switching in CPU. This is how our CPU implemented during context switch.
+
+On the other side, disk and input are not influenced by context switch. They just keep doing their own work until there are no more program.
+
+Acknowledgement:
+we use the red black tree from http://web.mit.edu/~emin/www.old/source_code/red_black_tree/index.html to construct our priority queue.
