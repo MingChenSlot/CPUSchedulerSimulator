@@ -49,7 +49,9 @@ int nex_arr_prog(TASK *arr_prog, int time)
 {
 	if(arr_prog == NULL)
 		return INF;
-	else
-		return (arr_prog->t_arrive - time);
+	else{
+		int t = (arr_prog->t_arrive - time);
+		return t>0 ? t:0;
+	}
 }
 

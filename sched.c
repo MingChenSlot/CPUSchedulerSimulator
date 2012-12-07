@@ -74,14 +74,14 @@ int sched_take_out_proc(struct run_task *rt, QUEUE *wq, TASK *arr_prog, int time
 
 		TASK *p_wq = peek(wq);
 		if(p_wq){
-			if(!p_wq->t_io && p_wq->t_cpu && (peek(wq)->priority > rt->rproc->priority)){
+			if(!p_wq->t_io && p_wq->t_cpu){
 	//			printf("IO Completion Interrupt.\n");
 				return TRUE;
 			}
 		}
 
 		if(arr_prog){
-			if((arr_prog->t_arrive <= time) && arr_prog->priority > rt->rproc->priority){
+			if(arr_prog->t_arrive <= time && arr_prog->priority > rt->rproc->priority){
 	//			printf("New Program Interrupt.\n");
 				return TRUE;
 			}
@@ -101,7 +101,7 @@ int sched_compl_io(QUEUE *wq)
 
 int sched_nex_io(struct run_task *rt)
 {
-	if(rt->status == SWITCH_OUT && rt->rproc->c_io && rt->rproc->t_cpu > 0)
+	if(rt->status == SWITCH_OUT && rt->rproc->c_io)
 		return (rt->rproc->t_nex_io == 0);
 	return FALSE;
 } 

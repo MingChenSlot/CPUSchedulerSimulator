@@ -14,7 +14,7 @@ inline int min(int t1, int t2, int t3)
 
 int main(int argc, char *argv[])
 {
-	int time = 0; /* cpu time */
+	int time = 10; /* cpu time */
 	int t = 0; /* time interval */
 	
 	READY_QUEUE rq;
