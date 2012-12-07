@@ -45,10 +45,11 @@ int main(int argc, char *argv[])
 		t = min(t1, t2, t3);
 		
 		time += t;
+		
 		if(rt.status == RUNNING)
 			update_run_task(&rt, t);
 		update_io_time(&wq, t);
-
+		
 		/* after 1ms switch out, put the running process into correct queue */
 		if(!rt.set && rt.status == SWITCH_OUT)
 			settle_proc(&rt, &rq, &oq, time);
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
 	
 		if(sched_compl_io(&wq))
 			handle_compl_io(&rq, &wq, &oq, time);
-		
+	
 		if(sched_nex_io(&rt))
 			new_io(&wq, &rt);
 		
@@ -98,6 +99,7 @@ int main(int argc, char *argv[])
 	int tmp_time = 0;
 	while(len(&oq)){
 		last = dequeue(&oq);
+		assert(last->c_io <= 0);
 		num++;
 		tmp_time = last->t_finish - last->t_arrive;	
 		assert(tmp_time > 0);

@@ -25,7 +25,7 @@ TASK *read_prog()
 		tmp->t_exec = tmp->t_io = tmp->t_slice = tmp->t_finish = 0;
 		tmp->c_io = getceil(tmp->c_io, BLOCK_SIZE);
 		
-		if(tmp->c_io){
+		if(tmp->c_io && tmp->t_cpu > 0){
 			tmp->t_io_slice = tmp->t_cpu / tmp->c_io;
 			if(tmp->t_io_slice < MIN_T)
 				tmp->t_io_slice = MIN_T;
@@ -36,6 +36,8 @@ TASK *read_prog()
 		}
 
 		tmp->priority = init_p(tmp);
+		if(tmp->t_cpu == 0)
+			assert(tmp->t_io_slice == 0);
 		return tmp;
 	}else if(ret == EOF){
 		return NULL;

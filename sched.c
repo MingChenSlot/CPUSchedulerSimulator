@@ -44,6 +44,7 @@ void take_out_proc(struct run_task *rt)
 void settle_proc(struct run_task *rt, void *rq, QUEUE *oq, int time)
 {
 	if(rt->rproc->t_cpu == 0){
+		assert(rt->rproc->c_io == 0);
 		assert(rt->rproc->t_arrive < time);
 		rt->rproc->t_finish = time;	
 		enqueue(oq, rt->rproc);
@@ -101,8 +102,8 @@ int sched_compl_io(QUEUE *wq)
 
 int sched_nex_io(struct run_task *rt)
 {
-	if(rt->status == SWITCH_OUT && rt->rproc->c_io)
-		return (rt->rproc->t_nex_io == 0);
+	if(rt->status == SWITCH_OUT && rt->rproc->c_io > 0)
+		return (rt->rproc->t_nex_io == 0 || rt->rproc->t_nex_io == INF);
 	return FALSE;
 } 
 
